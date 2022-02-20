@@ -114,7 +114,7 @@ const createFile = async (
 // upload to database
 const saveToDb = async (metaHash, imageHash, editionSize) => {
   for (let i = 1; i < editionSize + 1; i++) {
-    let id = i.toString();
+    let id = i.toString(16);
     let paddedHex = (
       "0000000000000000000000000000000000000000000000000000000000000000" + id
     ).slice(-64);

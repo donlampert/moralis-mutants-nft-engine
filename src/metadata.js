@@ -38,7 +38,7 @@ const uploadMetadata = async (
   const promiseArray = []; // array of promises so that only if finished, will next promise be initiated
 
   for (let i = 1; i < editionSize + 1; i++) {
-    let id = i.toString();
+    let id = i.toString(16);
     let paddedHex = (
       "0000000000000000000000000000000000000000000000000000000000000000" + id
     ).slice(-64);
@@ -75,7 +75,7 @@ const uploadMetadata = async (
     // reads output folder for json files and then adds to IPFS object array
     promiseArray.push(
       new Promise((res, rej) => {
-        fs.readFile(`./output/${id}.json`, (err, data) => {
+        fs.readFile(`./output/${i}.json`, (err, data) => {
           if (err) rej();
           ipfsArray.push({
             path: `metadata/${paddedHex}.json`,
@@ -121,15 +121,15 @@ const compileMetadata = async (
   promiseArray = [];
 
   for (let i = 1; i < editionCount; i++) {
-    let id = i.toString();
-    let paddedHex = (
+    const id = i.toString(16);
+    const paddedHex = (
       "0000000000000000000000000000000000000000000000000000000000000000" + id
     ).slice(-64);
 
     // reads output folder for images and adds to IPFS object metadata array (within promise array)
     promiseArray.push(
       new Promise((res, rej) => {
-        fs.readFile(`./output/${id}.png`, (err, data) => {
+        fs.readFile(`./output/${i}.png`, (err, data) => {
           if (err) rej();
           ipfsArray.push({
             path: `images/${paddedHex}.png`,
