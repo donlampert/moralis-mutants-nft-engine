@@ -16,10 +16,12 @@ contract NFTContract is ERC1155, Ownable {
             "ipfs://INSERT_YOUR_CID_METAHASH/metadata/{id}.json" // You can get this saved in dasboard of your Moralis server instance.
         )
     {
-        // account, token_id, number
-        _mint(msg.sender, 1, 1, "");
-        _mint(msg.sender, 2, 1, "");
-        _mint(msg.sender, 3, 1, "");
+        uint editionCount = 20;
+
+        for(uint i = 1; i <= editionCount; i++) {
+            // account, token_id, number
+            _mint(msg.sender, i, 1, "");
+        }
     }
 
     /*
